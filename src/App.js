@@ -1,6 +1,7 @@
 import { Switch, Route } from "react-router";
 
 import Navigation from "./components/layout/Navigation/Navigation";
+import HomePage from "./pages/HomePage/HomePage";
 
 const App = function () {
 	return (
@@ -9,7 +10,7 @@ const App = function () {
 
 			<Switch>
 				<Route path="/" exact>
-					<div>Homepage</div>
+					<HomePage />
 				</Route>
 				<Route path="/watchlist">
 					<div>WatchList</div>

@@ -1,0 +1,59 @@
+.movie-item__card {
+	height: 100%;
+}
+
+.movie-item__card figure {
+	cursor: pointer;
+}
+
+.movie-item__info-row {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.movie-item__info-row {
+	margin-bottom: 2rem;
+}
+
+.movie-item__info-row h4 {
+	font-size: 1.6rem;
+}
+
+.movie-item__rating {
+	background-color: var(--color-blue);
+	color: #fff;
+	font-size: 1.4rem;
+	padding: 0.75rem;
+	border-radius: 5px;
+}
+
+.movie-item__info-row p {
+	font-size: 1.4rem;
+}
+
+.movie-item__watchlist-btn {
+	width: 100%;
+	display: block;
+	background-color: var(--color-blue);
+	color: #fff;
+	border: none;
+	cursor: pointer;
+	padding: 1rem;
+	border-radius: 3px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
+	transition: all 0.3s;
+}
+
+.movie-item__watchlist-btn:focus {
+	outline: none;
+}
+
+.movie-item__watchlist-btn:hover {
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+	transform: translateY(-2px);
+}
+
+.movie-item__watchlist-btn:active {
+	transform: translateY(0);
+}

@@ -3,6 +3,9 @@
 :root {
 	--color-black: #161616;
 	--color-black-light-1: #535050;
+	--color-black-light-2: #7e7a7a;
+
+	--color-blue: #4d6de3;
 }
 
 *,
