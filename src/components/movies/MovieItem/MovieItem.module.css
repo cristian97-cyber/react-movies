@@ -2,10 +2,6 @@
 	height: 100%;
 }
 
-.movie-item__card figure {
-	cursor: pointer;
-}
-
 .movie-item__info-row {
 	display: flex;
 	justify-content: space-between;
@@ -16,6 +12,7 @@
 
 .movie-item__info-row h4 {
 	font-size: 1.6rem;
+	margin-right: 1rem;
 }
 
 .movie-item__rating {

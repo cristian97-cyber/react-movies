@@ -34,3 +34,37 @@ body {
 	display: grid;
 	grid-template-columns: [full-start] 1fr [content-start] 1320px [content-end] 1fr [full-end];
 }
+
+@media only screen and (max-width: 1400px) {
+	#root {
+		grid-template-columns: [full-start] 1fr [content-start] 1140px [content-end] 1fr [full-end];
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	#root {
+		grid-template-columns: [full-start] 1fr [content-start] 960px [content-end] 1fr [full-end];
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	html {
+		font-size: 50%;
+	}
+
+	#root {
+		grid-template-columns: [full-start] 1fr [content-start] 720px [content-end] 1fr [full-end];
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	#root {
+		grid-template-columns: [full-start] 1fr [content-start] 540px [content-end] 1fr [full-end];
+	}
+}
+
+@media only screen and (max-width: 576px) {
+	#root {
+		grid-template-columns: [full-start] 1fr [content-start] 90% [content-end] 1fr [full-end];
+	}
+}

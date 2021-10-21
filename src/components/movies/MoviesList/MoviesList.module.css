@@ -7,3 +7,9 @@
 	list-style: none;
 	margin-bottom: 5rem;
 }
+
+@media only screen and (max-width: 576px) {
+	.movies-list {
+		grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
+	}
+}

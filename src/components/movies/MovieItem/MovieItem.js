@@ -8,6 +8,7 @@ const MovieItem = function (props) {
 				className={style["movie-item__card"]}
 				image={props.image}
 				alt={props.title}
+				destination={`/${props.id}`}
 			>
 				<div className={style["movie-item__info-row"]}>
 					<h4>{props.title}</h4>

@@ -51,9 +51,9 @@
 }
 
 .pagination__item:not(:last-of-type) {
-	margin-right: 1rem;
+	margin-right: 0.5rem;
 }
 
 .pagination__dots {
-	margin-right: 1rem;
+	margin-right: 0.5rem;
 }

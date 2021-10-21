@@ -81,3 +81,15 @@
 .navigation__link.active {
 	color: #fff;
 }
+
+@media only screen and (max-width: 768px) {
+	.navigation__search {
+		width: 25rem;
+	}
+}
+
+@media only screen and (max-width: 576px) {
+	.navigation__search {
+		display: none;
+	}
+}

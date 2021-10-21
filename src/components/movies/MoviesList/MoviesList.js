@@ -5,6 +5,7 @@ const MoviesList = function (props) {
 	const moviesList = props.movies.map(movie => (
 		<MovieItem
 			key={movie.id}
+			id={movie.id}
 			image={movie.image}
 			title={movie.title}
 			year={movie.year}
