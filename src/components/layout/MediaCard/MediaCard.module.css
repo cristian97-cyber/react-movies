@@ -6,7 +6,6 @@
 
 .media-card__figure img {
 	width: 100%;
-	object-fit: cover;
 }
 
 .media-card__content {

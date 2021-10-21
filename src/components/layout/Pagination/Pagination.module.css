@@ -6,25 +6,25 @@
 	margin-bottom: 5rem;
 }
 
-.pagination__chevron {
+.pagination svg {
 	width: 2.5rem;
 	height: 2.5rem;
 }
 
-.pagination__chevron:first-of-type {
+.pagination svg:first-of-type {
 	margin-right: 1rem;
 }
 
-.pagination__chevron:last-of-type {
+.pagination svg:last-of-type {
 	margin-left: 1rem;
-}
-
-.pagination__chevron--disabled {
-	fill: var(--color-black-light-2);
 }
 
 .pagination__chevron--enabled {
 	cursor: pointer;
+}
+
+.pagination__chevron--disabled {
+	fill: var(--color-black-light-2);
 }
 
 .pagination__item {
@@ -37,11 +37,11 @@
 	background-color: transparent;
 	border-radius: 50%;
 	cursor: pointer;
-	transition: all 0.3s;
+	transition: all 0.2s;
 }
 
 .pagination__item:hover {
-	background-color: #c2cdf5;
+	background-color: var(--color-blue-light-1);
 	color: #fff;
 }
 

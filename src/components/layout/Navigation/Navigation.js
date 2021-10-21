@@ -13,14 +13,16 @@ const Navigation = function () {
 					React Movies
 				</Link>
 			</div>
+
 			<div className={style["navigation__search"]}>
 				<svg className={style["navigation__search-icon"]}>
 					<use href={`${icons}#icon-search`} />
 				</svg>
 				<input type="text" placeholder="Search Movie" />
 			</div>
-			<nav>
-				<ul className={style["navigation__nav"]}>
+
+			<nav className={style["navigation__nav"]}>
+				<ul>
 					<li>
 						<NavLink
 							to="/"

@@ -11,13 +11,13 @@ const MovieItem = function (props) {
 			>
 				<div className={style["movie-item__info-row"]}>
 					<h4>{props.title}</h4>
-					<div className={style["movie-item__rating"]}>{props.imdbRating}</div>
+					<div className={style["movie-item__rating"]}>{props.rating}</div>
 				</div>
 				<div className={style["movie-item__info-row"]}>
 					<p>{props.year}</p>
 					<p>{props.type}</p>
 				</div>
-				<button type="button" className={style["movie-item__watchlist-btn"]}>
+				<button type="button" className={style["movie-item__btn"]}>
 					Add to WatchList
 				</button>
 			</MediaCard>

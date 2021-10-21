@@ -4,9 +4,7 @@ import icons from "../../../img/icons.svg";
 const Pagination = function () {
 	return (
 		<div className={style.pagination}>
-			<svg
-				className={`${style["pagination__chevron"]} ${style["pagination__chevron--disabled"]}`}
-			>
+			<svg className={style["pagination__chevron--disabled"]}>
 				<use href={`${icons}#icon-navigate_before`}></use>
 			</svg>
 
@@ -22,9 +20,7 @@ const Pagination = function () {
 			<div className={style["pagination__dots"]}>...</div>
 			<div className={style["pagination__item"]}>10</div>
 
-			<svg
-				className={`${style["pagination__chevron"]} ${style["pagination__chevron--enabled"]}`}
-			>
+			<svg className={style["pagination__chevron--enabled"]}>
 				<use href={`${icons}#icon-navigate_next`}></use>
 			</svg>
 		</div>

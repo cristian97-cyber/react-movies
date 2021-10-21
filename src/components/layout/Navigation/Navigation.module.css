@@ -58,19 +58,19 @@
 	outline: none;
 }
 
-.navigation__nav {
+.navigation__nav ul {
 	display: flex;
 	align-items: center;
 
 	list-style: none;
 }
 
-.navigation__nav li:not(:last-child) {
+.navigation__nav ul li:not(:last-child) {
 	margin-right: 2rem;
 }
 
 .navigation__link {
-	color: #bbb;
+	color: var(--color-black-light-2);
 	font-size: 1.8rem;
 	text-decoration: none;
 	transition: all 0.2s;

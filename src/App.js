@@ -16,9 +16,11 @@ const App = function () {
 					<div>WatchList</div>
 				</Route>
 				<Route path="/:movieId" exact>
-					<div>Movie detail</div>
+					<div>MovieDetail</div>
 				</Route>
-				<Route path="*">Not found</Route>
+				<Route path="*">
+					<div>NotFound</div>
+				</Route>
 			</Switch>
 		</>
 	);
