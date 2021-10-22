@@ -1,0 +1,21 @@
+.loading-spinner {
+	display: flex;
+	justify-content: center;
+}
+
+.loading-spinner svg {
+	width: 4rem;
+	height: 4rem;
+	fill: var(--color-blue);
+	animation: rotate 0.75s linear infinite;
+}
+
+@keyframes rotate {
+	0% {
+		transform: rotate(0);
+	}
+
+	100% {
+		transform: rotate(360deg);
+	}
+}
