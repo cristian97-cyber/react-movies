@@ -14,8 +14,7 @@ const MovieItem = function (props) {
 					<h4>{props.title}</h4>
 					<div className={style["movie-item__rating"]}>{props.rating}</div>
 				</div>
-				<div className={style["movie-item__info-row"]}>
-					<p>{props.year}</p>
+				<div className={style["movie-item__info-item"]}>
 					<p>{props.type}</p>
 				</div>
 				<button type="button" className={style["movie-item__btn"]}>

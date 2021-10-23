@@ -9,7 +9,7 @@ const Navigation = function () {
 		<header className={style.navigation}>
 			<div className={style["navigation__logo"]}>
 				<img src={logo} alt="Logo" />
-				<Link className={style["navigation__logo-link"]} to="/">
+				<Link className={style["navigation__logo-link"]} to="/movies">
 					React Movies
 				</Link>
 			</div>
@@ -25,12 +25,12 @@ const Navigation = function () {
 				<ul>
 					<li>
 						<NavLink
-							to="/"
+							to="/movies"
 							className={style["navigation__link"]}
 							activeClassName={style.active}
 							exact
 						>
-							Home
+							Movies
 						</NavLink>
 					</li>
 					<li>

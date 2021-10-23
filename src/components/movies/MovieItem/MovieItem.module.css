@@ -23,7 +23,15 @@
 	border-radius: 5px;
 }
 
-.movie-item__info-row p {
+.movie-item__info-item {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	margin-bottom: 2rem;
+}
+
+.movie-item__info-item p {
 	font-size: 1.4rem;
 }
 

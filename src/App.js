@@ -1,4 +1,4 @@
-import { Switch, Route } from "react-router";
+import { Switch, Route, Redirect } from "react-router";
 
 import Navigation from "./components/layout/Navigation/Navigation";
 import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
@@ -14,6 +14,10 @@ const App = function () {
 
 			<Switch>
 				<Route path="/" exact>
+					<Redirect to="/movies" />
+				</Route>
+
+				<Route path="/movies">
 					<HomePage />
 				</Route>
 				<Route path="/watchlist">

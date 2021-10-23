@@ -1,26 +1,98 @@
 import style from "./Pagination.module.css";
 import icons from "../../../img/icons.svg";
 
-const Pagination = function () {
+const Pagination = function (props) {
+	const paginationNumbers = [];
+	for (let i = 0; i < props.numPages; i++) {
+		if (props.numPages <= 7) {
+			paginationNumbers.push(i + 1);
+			continue;
+		}
+
+		switch (i) {
+			case 0:
+				paginationNumbers.push(i + 1);
+				break;
+			case 1:
+				if (props.actualPage < 5) paginationNumbers.push(i + 1);
+				else paginationNumbers.push(0);
+				break;
+			case 2:
+				if (props.actualPage < 5) paginationNumbers.push(i + 1);
+				else paginationNumbers.push(props.actualPage - 1);
+				break;
+			case 3:
+				if (props.actualPage < 5) {
+					paginationNumbers.push(i + 1);
+				} else if (props.actualPage >= props.numPages - 3) {
+					paginationNumbers.push(props.numPages - 3);
+				} else {
+					paginationNumbers.push(props.actualPage);
+				}
+				break;
+			case 4:
+				if (props.actualPage < 5) {
+					paginationNumbers.push(i + 1);
+				} else if (props.actualPage >= props.numPages - 3) {
+					paginationNumbers.push(props.numPages - 2);
+				} else {
+					paginationNumbers.push(props.actualPage + 1);
+				}
+				break;
+			case 5:
+				if (props.actualPage >= props.numPages - 3) {
+					paginationNumbers.push(props.numPages - 1);
+				} else {
+					paginationNumbers.push(0);
+				}
+				break;
+			case 6:
+				paginationNumbers.push(props.numPages);
+				break;
+			default:
+				break;
+		}
+	}
+
+	const goToPage = function (e) {
+		console.log(e.target);
+	};
+
+	const paginationItems = paginationNumbers.map(num => {
+		if (num === 0) {
+			return <div className={style["pagination__dots"]}>...</div>;
+		}
+
+		const className = `${style["pagination__item"]} ${
+			num === props.actualPage ? style["pagination__item--active"] : ""
+		}`;
+
+		return (
+			<div className={className} onClick={goToPage}>
+				{num}
+			</div>
+		);
+	});
+
+	const chevronLeftClassName = `${
+		props.actualPage === 1
+			? style["pagination__chevron--disabled"]
+			: style["pagination__chevron--enabled"]
+	}`;
+
+	const chevronRightClassName = `${
+		props.actualPage === props.numPages
+			? style["pagination__chevron--disabled"]
+			: style["pagination__chevron--enabled"]
+	}`;
+
 	return (
 		<div className={style.pagination}>
-			<svg className={style["pagination__chevron--disabled"]}>
+			<svg className={chevronLeftClassName} onClick={goToPage}>
 				<use href={`${icons}#icon-navigate_before`}></use>
 			</svg>
-
-			<div
-				className={`${style["pagination__item"]} ${style["pagination__item--active"]}`}
-			>
-				1
-			</div>
-			<div className={style["pagination__item"]}>2</div>
-			<div className={style["pagination__item"]}>3</div>
-			<div className={style["pagination__item"]}>4</div>
-			<div className={style["pagination__item"]}>5</div>
-			<div className={style["pagination__dots"]}>...</div>
-			<div className={style["pagination__item"]}>10</div>
-
-			<svg className={style["pagination__chevron--enabled"]}>
+			{paginationItems}
+			<svg className={chevronRightClassName} onClick={goToPage}>
 				<use href={`${icons}#icon-navigate_next`}></use>
 			</svg>
 		</div>
