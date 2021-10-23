@@ -1,20 +1,20 @@
-import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import style from "./MediaCard.module.css";
 
 const MediaCard = function (props) {
-	const imageRef = useRef();
-
-	useEffect(() => {
-		imageRef.current.src = props.image;
-	}, []);
-
 	return (
 		<div className={`${style["media-card"]} ${props.className}`}>
-			<Link to={props.destination}>
+			<Link to={`/${props.destination}`}>
 				<figure className={style["media-card__figure"]}>
-					<img src="sd.jpg" alt={props.alt} ref={imageRef} />
+					<LazyLoadImage
+						alt={props.alt}
+						height="40rem"
+						width="100%"
+						src={props.image}
+						effect="opacity"
+					/>
 				</figure>
 			</Link>
 
