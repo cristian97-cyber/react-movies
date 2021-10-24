@@ -1,18 +1,23 @@
 import { useState, useEffect } from "react";
+import { useHistory, useLocation } from "react-router";
 
-import style from "./HomePage.module.css";
+import style from "./MoviesPage.module.css";
 import useHttp from "../../hooks/http";
 import { API_URL, API_POSTER_URL, API_KEY } from "../../config";
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
-import Message from "../../components/layout/ErrorMessage/Message";
+import Message from "../../components/layout/Message/Message";
 import MoviesList from "../../components/movies/MoviesList/MoviesList";
 import Pagination from "../../components/layout/Pagination/Pagination";
 
-const HomePage = function () {
+const MoviesPage = function () {
+	const history = useHistory();
+	const location = useLocation();
+	const urlParams = new URLSearchParams(location.search);
+
 	const [movies, setMovies] = useState([]);
 	const [noMovies, setNoMovies] = useState(false);
-	const [moviesPage, setMoviesPage] = useState(1);
-	const [moviesTotalPages, setMoviesTotalPage] = useState(0);
+	const [moviesTotalPages, setMoviesTotalPages] = useState(0);
+	const [moviesPage, setMoviesPage] = useState(urlParams.get("page") || 1);
 
 	const [isLoading, error, sendHttpRequest] = useHttp();
 
@@ -39,7 +44,7 @@ const HomePage = function () {
 				};
 				foundMovies.push(movie);
 			});
-			setMoviesTotalPage(data.total_pages);
+			setMoviesTotalPages(data.total_pages);
 
 			if (foundMovies.length === 0) {
 				setNoMovies(true);
@@ -69,11 +74,12 @@ const HomePage = function () {
 	}, [moviesPage, sendHttpRequest]);
 
 	const goToPage = function (page) {
+		history.push(`${location.pathname}?page=${page}`);
 		setMoviesPage(page);
 	};
 
 	return (
-		<main className={style.homepage}>
+		<main className={style["movies-page"]}>
 			{isLoading && <LoadingSpinner />}
 
 			{!isLoading && error && <Message type="error" message={error.message} />}
@@ -82,7 +88,6 @@ const HomePage = function () {
 			)}
 
 			{!isLoading && !error && !noMovies && <MoviesList movies={movies} />}
-
 			{!isLoading && !error && !noMovies && (
 				<Pagination
 					actualPage={moviesPage}
@@ -94,4 +99,4 @@ const HomePage = function () {
 	);
 };
 
-export default HomePage;
+export default MoviesPage;

@@ -2,7 +2,7 @@ import style from "./Message.module.css";
 import icons from "../../../img/icons.svg";
 
 const Message = function (props) {
-	const classNames = `${style.message} ${
+	const className = `${style.message} ${
 		props.type === "info" ? style["message--info"] : style["message--error"]
 	}`;
 
@@ -11,7 +11,7 @@ const Message = function (props) {
 	}`;
 
 	return (
-		<div className={classNames}>
+		<div className={className}>
 			<svg>
 				<use href={messageIcon} />
 			</svg>
