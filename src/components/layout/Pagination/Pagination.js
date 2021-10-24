@@ -2,10 +2,12 @@ import style from "./Pagination.module.css";
 import icons from "../../../img/icons.svg";
 
 const Pagination = function (props) {
+	const numPagItems = 7;
+
 	const paginationNumbers = [];
-	for (let i = 0; i < props.numPages; i++) {
+	for (let i = 0; i < numPagItems; i++) {
 		if (props.numPages <= 7) {
-			paginationNumbers.push(i + 1);
+			if (i < props.numPages) paginationNumbers.push(i + 1);
 			continue;
 		}
 
@@ -15,7 +17,7 @@ const Pagination = function (props) {
 				break;
 			case 1:
 				if (props.actualPage < 5) paginationNumbers.push(i + 1);
-				else paginationNumbers.push(0);
+				else paginationNumbers.push(-1);
 				break;
 			case 2:
 				if (props.actualPage < 5) paginationNumbers.push(i + 1);
@@ -43,7 +45,7 @@ const Pagination = function (props) {
 				if (props.actualPage >= props.numPages - 3) {
 					paginationNumbers.push(props.numPages - 1);
 				} else {
-					paginationNumbers.push(0);
+					paginationNumbers.push(-2);
 				}
 				break;
 			case 6:
@@ -54,13 +56,20 @@ const Pagination = function (props) {
 		}
 	}
 
-	const goToPage = function (e) {
-		console.log(e.target);
+	const movePage = function () {
+		const newPage = this;
+		if (newPage === 0 || newPage > props.numPages) return;
+
+		props.onChangePage(newPage);
 	};
 
 	const paginationItems = paginationNumbers.map(num => {
-		if (num === 0) {
-			return <div className={style["pagination__dots"]}>...</div>;
+		if (num < 0) {
+			return (
+				<div key={num} className={style["pagination__dots"]}>
+					...
+				</div>
+			);
 		}
 
 		const className = `${style["pagination__item"]} ${
@@ -68,7 +77,7 @@ const Pagination = function (props) {
 		}`;
 
 		return (
-			<div className={className} onClick={goToPage}>
+			<div key={num} className={className} onClick={movePage.bind(num)}>
 				{num}
 			</div>
 		);
@@ -88,11 +97,17 @@ const Pagination = function (props) {
 
 	return (
 		<div className={style.pagination}>
-			<svg className={chevronLeftClassName} onClick={goToPage}>
+			<svg
+				className={chevronLeftClassName}
+				onClick={movePage.bind(props.actualPage - 1)}
+			>
 				<use href={`${icons}#icon-navigate_before`}></use>
 			</svg>
 			{paginationItems}
-			<svg className={chevronRightClassName} onClick={goToPage}>
+			<svg
+				className={chevronRightClassName}
+				onClick={movePage.bind(props.actualPage + 1)}
+			>
 				<use href={`${icons}#icon-navigate_next`}></use>
 			</svg>
 		</div>

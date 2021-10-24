@@ -1,0 +1,31 @@
+.message {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.message svg {
+	width: 7.5rem;
+	height: 7.5rem;
+	margin-bottom: 1rem;
+}
+
+.message p {
+	font-size: 1.8rem;
+}
+
+.message--info svg {
+	fill: var(--color-blue);
+}
+
+.message--error svg {
+	fill: var(--color-error);
+}
+
+.message--info p {
+	color: var(--color-blue);
+}
+
+.message--error p {
+	color: var(--color-error);
+}

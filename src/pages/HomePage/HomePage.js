@@ -4,13 +4,15 @@ import style from "./HomePage.module.css";
 import useHttp from "../../hooks/http";
 import { API_URL, API_POSTER_URL, API_KEY } from "../../config";
 import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
-import ErrorMessage from "../../components/layout/ErrorMessage/ErrorMessage";
+import Message from "../../components/layout/ErrorMessage/Message";
 import MoviesList from "../../components/movies/MoviesList/MoviesList";
 import Pagination from "../../components/layout/Pagination/Pagination";
 
 const HomePage = function () {
 	const [movies, setMovies] = useState([]);
+	const [noMovies, setNoMovies] = useState(false);
 	const [moviesPage, setMoviesPage] = useState(1);
+	const [moviesTotalPages, setMoviesTotalPage] = useState(0);
 
 	const [isLoading, error, sendHttpRequest] = useHttp();
 
@@ -37,6 +39,14 @@ const HomePage = function () {
 				};
 				foundMovies.push(movie);
 			});
+			setMoviesTotalPage(data.total_pages);
+
+			if (foundMovies.length === 0) {
+				setNoMovies(true);
+				return;
+			} else {
+				setNoMovies(false);
+			}
 
 			foundMovies.forEach(async movie => {
 				const url = `${API_URL}/${movie.type === "Movie" ? "movie" : "tv"}/${
@@ -56,7 +66,7 @@ const HomePage = function () {
 			setMovies(foundMovies);
 		};
 		getTrendingMovies();
-	}, [sendHttpRequest, moviesPage]);
+	}, [moviesPage, sendHttpRequest]);
 
 	const goToPage = function (page) {
 		setMoviesPage(page);
@@ -65,13 +75,18 @@ const HomePage = function () {
 	return (
 		<main className={style.homepage}>
 			{isLoading && <LoadingSpinner />}
-			{!isLoading && error && <ErrorMessage message={error.message} />}
 
-			{!isLoading && !error && <MoviesList movies={movies} />}
-			{!isLoading && !error && (
+			{!isLoading && error && <Message type="error" message={error.message} />}
+			{!isLoading && !error && noMovies && (
+				<Message type="info" message="There are no data" />
+			)}
+
+			{!isLoading && !error && !noMovies && <MoviesList movies={movies} />}
+
+			{!isLoading && !error && !noMovies && (
 				<Pagination
 					actualPage={moviesPage}
-					numPages={20}
+					numPages={moviesTotalPages}
 					onChangePage={goToPage}
 				/>
 			)}
