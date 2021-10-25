@@ -4,12 +4,53 @@
 	overflow: hidden;
 }
 
+.media-card__figure {
+	width: 100%;
+	height: 45rem;
+}
+
 .media-card__figure img {
 	width: 100%;
-	height: 40rem;
+	height: 100%;
 	object-fit: cover;
 }
 
 .media-card__content {
 	padding: 2rem 1rem;
+}
+
+@media only screen and (max-width: 1400px) {
+	.media-card__figure {
+		height: 50rem;
+	}
+}
+
+@media only screen and (max-width: 1200px) {
+	.media-card__figure {
+		height: 42.5rem;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.media-card__figure {
+		height: 62.5rem;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.media-card__figure {
+		height: 47.5rem;
+	}
+}
+
+@media only screen and (max-width: 576px) {
+	.media-card__figure {
+		height: 67.5rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.media-card__figure {
+		height: 52.5rem;
+	}
 }

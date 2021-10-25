@@ -32,9 +32,8 @@
 	justify-content: center;
 	align-items: center;
 
-	width: 3rem;
-	height: 3rem;
 	background-color: transparent;
+	padding: 0.75rem 1.25rem;
 	border-radius: 50%;
 	cursor: pointer;
 	transition: all 0.2s;
@@ -46,7 +45,7 @@
 }
 
 .pagination__item--active {
-	background-color: var(--color-blue);
+	background-color: var(--color-blue) !important;
 	color: #fff;
 }
 

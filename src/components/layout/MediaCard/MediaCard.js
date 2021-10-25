@@ -10,8 +10,8 @@ const MediaCard = function (props) {
 				<figure className={style["media-card__figure"]}>
 					<LazyLoadImage
 						alt={props.alt}
-						height="40rem"
 						width="100%"
+						height="100%"
 						src={props.image}
 						effect="opacity"
 					/>

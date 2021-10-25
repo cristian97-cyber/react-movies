@@ -1,5 +1,6 @@
 .movie-item__card {
 	height: 100%;
+	font-size: 1.6rem;
 }
 
 .movie-item__info-row {
@@ -11,14 +12,12 @@
 }
 
 .movie-item__info-row h4 {
-	font-size: 1.6rem;
 	margin-right: 1rem;
 }
 
 .movie-item__rating {
 	background-color: var(--color-blue);
 	color: #fff;
-	font-size: 1.4rem;
 	padding: 0.75rem;
 	border-radius: 5px;
 }
@@ -31,19 +30,16 @@
 	margin-bottom: 2rem;
 }
 
-.movie-item__info-item p {
-	font-size: 1.4rem;
-}
-
 .movie-item__btn {
 	width: 100%;
 	display: block;
 	background-color: var(--color-blue);
 	color: #fff;
-	border: none;
-	cursor: pointer;
+	font: inherit;
 	padding: 1rem;
+	border: none;
 	border-radius: 3px;
+	cursor: pointer;
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25);
 	transition: all 0.2s;
 }
@@ -59,4 +55,16 @@
 
 .movie-item__btn:active {
 	transform: translateY(0);
+}
+
+@media only screen and (max-width: 992px) {
+	.movie-item__card {
+		font-size: 1.8rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.movie-item__card {
+		font-size: 1.6rem;
+	}
 }

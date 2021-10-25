@@ -8,8 +8,21 @@
 	margin-bottom: 5rem;
 }
 
+@media only screen and (max-width: 992px) {
+	.movies-list {
+		grid-template-columns: repeat(auto-fit, minmax(27.5rem, 1fr));
+	}
+}
+
 @media only screen and (max-width: 576px) {
 	.movies-list {
-		grid-template-columns: repeat(auto-fit, minmax(22.5rem, 1fr));
+		grid-template-columns: 45rem;
+		justify-content: center;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.movies-list {
+		grid-template-columns: 35rem;
 	}
 }

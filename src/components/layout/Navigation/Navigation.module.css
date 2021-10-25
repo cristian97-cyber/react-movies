@@ -51,6 +51,7 @@
 	height: 3rem;
 	background-color: transparent;
 	font: inherit;
+	font-size: 1.6rem;
 	border: none;
 }
 
@@ -82,6 +83,20 @@
 	color: #fff;
 }
 
+@media only screen and (max-width: 992px) {
+	.navigation__search {
+		width: 45rem;
+	}
+
+	.navigation__search input {
+		font-size: 1.8rem;
+	}
+
+	.navigation__link {
+		font-size: 2rem;
+	}
+}
+
 @media only screen and (max-width: 768px) {
 	.navigation__search {
 		width: 25rem;
@@ -89,19 +104,25 @@
 }
 
 @media only screen and (max-width: 576px) {
+	.navigation__search {
+		display: none;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.navigation__logo img {
+		width: 4.5rem;
+	}
+
 	.navigation__logo-link {
 		font-size: 2rem;
 	}
 
 	.navigation__nav ul li:not(:last-child) {
-		margin-right: 1rem;
+		margin-right: 1.5rem;
 	}
 
 	.navigation__link {
-		font-size: 1.6rem;
-	}
-
-	.navigation__search {
-		display: none;
+		font-size: 1.8rem;
 	}
 }

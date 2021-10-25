@@ -17,7 +17,7 @@ const MoviesPage = function () {
 	const [movies, setMovies] = useState([]);
 	const [noMovies, setNoMovies] = useState(false);
 	const [moviesTotalPages, setMoviesTotalPages] = useState(0);
-	const [moviesPage, setMoviesPage] = useState(urlParams.get("page") || 1);
+	const [moviesPage, setMoviesPage] = useState(+urlParams.get("page") || 1);
 
 	const [isLoading, error, sendHttpRequest] = useHttp();
 
