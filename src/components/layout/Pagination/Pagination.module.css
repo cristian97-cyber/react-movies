@@ -3,6 +3,7 @@
 	justify-content: center;
 	align-items: center;
 
+	font-size: 1.6rem;
 	margin-bottom: 5rem;
 }
 
@@ -55,4 +56,52 @@
 
 .pagination__dots {
 	margin-right: 0.5rem;
+}
+
+@media only screen and (max-width: 992px) {
+	.pagination {
+		font-size: 1.8rem;
+	}
+
+	.pagination svg {
+		width: 3rem;
+		height: 3rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.pagination {
+		font-size: 1.6rem;
+	}
+
+	.pagination svg {
+		width: 2.5rem;
+		height: 2.5rem;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.pagination svg:first-of-type {
+		margin-right: 0.5rem;
+	}
+
+	.pagination svg:last-of-type {
+		margin-left: 0.5rem;
+	}
+
+	.pagination__item {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+
+		background-color: transparent;
+		padding: 0.4rem 0.9rem;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: all 0.2s;
+	}
+
+	.pagination__item:not(:last-of-type) {
+		margin-right: 0.25rem;
+	}
 }

@@ -3,13 +3,18 @@
 	justify-content: space-between;
 	align-items: center;
 
+	height: 10rem;
 	background-color: var(--color-black);
 	color: #fff;
-	padding: 2.5rem;
+	padding: 0 2.5rem;
 	margin-bottom: 5rem;
-	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+	z-index: 200;
 
 	grid-column: full-start / full-end;
+}
+
+.navigation--shadow {
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
 }
 
 .navigation__logo {
@@ -83,6 +88,66 @@
 	color: #fff;
 }
 
+.navigation__responsive-icon {
+	display: none;
+}
+
+.navigation__responsive-icon svg {
+	width: 3rem;
+	height: 3rem;
+	fill: #fff;
+}
+
+.navigation__responsive {
+	position: absolute;
+	top: 10rem;
+	left: 0;
+	right: 0;
+
+	background-color: var(--color-black);
+	color: #fff;
+	padding: 0 2.5rem;
+	padding-top: 1rem;
+	padding-bottom: 3rem;
+	box-shadow: 0 8px 12px rgba(0, 0, 0, 0.25);
+	z-index: 100;
+}
+
+.navigation__responsive nav ul {
+	display: flex;
+	flex-direction: column;
+
+	list-style: none;
+}
+
+.navigation__responsive nav ul li {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.navigation__responsive nav ul li:not(:last-child) {
+	margin-bottom: 1rem;
+}
+
+.navigation__animation-enter {
+	transform: translateY(-10rem);
+}
+
+.navigation__animation-enter-active {
+	transform: translateY(0);
+	transition: all 0.3s;
+}
+
+.navigation__animation-exit {
+	transform: translateY(0);
+}
+
+.navigation__animation-exit-active {
+	transform: translateY(-10rem);
+	transition: all 0.3s;
+}
+
 @media only screen and (max-width: 992px) {
 	.navigation__search {
 		width: 45rem;
@@ -124,5 +189,15 @@
 
 	.navigation__link {
 		font-size: 1.8rem;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.navigation__nav {
+		display: none;
+	}
+
+	.navigation__responsive-icon {
+		display: block;
 	}
 }

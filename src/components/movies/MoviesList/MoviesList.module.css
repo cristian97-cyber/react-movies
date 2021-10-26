@@ -26,3 +26,9 @@
 		grid-template-columns: 35rem;
 	}
 }
+
+@media only screen and (max-width: 320px) {
+	.movies-list {
+		grid-template-columns: 27.5rem;
+	}
+}
