@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 
 import style from "./MoviesPage.module.css";
@@ -17,19 +17,22 @@ const MoviesPage = function () {
 	const history = useHistory();
 	const location = useLocation();
 	const urlParams = new URLSearchParams(location.search);
+	const searchQuery = urlParams.get("search") || "";
+	const actualPage = +urlParams.get("page") || 1;
 
 	const [movies, setMovies] = useState([]);
 	const [noMovies, setNoMovies] = useState(false);
-	const [actualPage, setActualPage] = useState(+urlParams.get("page") || 1);
 	const [totalPages, setTotalPages] = useState(0);
 
 	const [isLoading, error, sendHttpRequest] = useHttp();
 
 	useEffect(() => {
-		const getTrendingMovies = async function () {
-			const data = await sendHttpRequest({
-				url: `${API_URL}/trending/all/week?api_key=${API_KEY}&page=${actualPage}`,
-			});
+		const getMovies = async function () {
+			const url = searchQuery
+				? `${API_URL}/search/multi?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
+				: `${API_URL}/trending/all/week?api_key=${API_KEY}&page=${actualPage}`;
+
+			const data = await sendHttpRequest({ url });
 			if (!data) return;
 
 			const foundMovies = [];
@@ -61,7 +64,6 @@ const MoviesPage = function () {
 				const url = `${API_URL}/${movie.type}/${movie.id}?api_key=${API_KEY}`;
 				const data = await sendHttpRequest({ url });
 				if (!data) return;
-
 				movie.genres = data.genres;
 				movie.runtime = data.runtime || data.episode_run_time;
 				movie.releaseDate = data.release_date || data.first_air_date;
@@ -69,12 +71,11 @@ const MoviesPage = function () {
 
 			setMovies(foundMovies);
 		};
-		getTrendingMovies();
-	}, [actualPage, sendHttpRequest]);
+		getMovies();
+	}, [searchQuery, actualPage, sendHttpRequest]);
 
 	const goToPage = function (page) {
 		history.push(`${location.pathname}?page=${page}`);
-		setActualPage(page);
 	};
 
 	return (
@@ -83,12 +84,10 @@ const MoviesPage = function () {
 			onClick={() => dispatch(navigationActions.closeResponsiveNav())}
 		>
 			{isLoading && <LoadingSpinner />}
-
 			{!isLoading && error && <Message type="error" message={error.message} />}
 			{!isLoading && !error && noMovies && (
 				<Message type="info" message="There are no data" />
 			)}
-
 			{!isLoading && !error && !noMovies && <MoviesList movies={movies} />}
 			{!isLoading && !error && !noMovies && (
 				<Pagination
