@@ -9,6 +9,10 @@ const navigationSlice = createSlice({
 		toggleResponsiveNav(state) {
 			state.showResponsiveNav = !state.showResponsiveNav;
 		},
+
+		closeResponsiveNav(state) {
+			state.showResponsiveNav = false;
+		},
 	},
 });
 

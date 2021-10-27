@@ -15,7 +15,7 @@ const MovieItem = function (props) {
 					<div className={style["movie-item__rating"]}>{props.rating}</div>
 				</div>
 				<div className={style["movie-item__info-item"]}>
-					<p>{props.type}</p>
+					<p>{props.type === "movie" ? "Movie" : "Series"}</p>
 				</div>
 				<button type="button" className={style["movie-item__btn"]}>
 					Add to WatchList

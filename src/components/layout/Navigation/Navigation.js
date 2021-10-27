@@ -1,31 +1,23 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import style from "./Navigation.module.css";
 import logo from "../../../img/logo.svg";
 import icons from "../../../img/icons.svg";
+import { navigationActions } from "../../../store/navigation";
 
 const Navigation = function () {
 	const showResponsiveNav = useSelector(
 		state => state.navigation.showResponsiveNav
 	);
-	console.log(showResponsiveNav);
 
-	const toggleResponsiveNav = function () {
-		// setShowResponsiveNav(prev => !prev);
-	};
+	const dispatch = useDispatch();
 
-	// useEffect(() => {
-	// 	document.querySelector("body").addEventListener("click", e => {
-	// 		const clickedNav = e.target.closest("header");
-	// 		const clickedResponsiveNav = e.target.closest(".navigation__responsive");
-
-	// 		if (!clickedNav && !clickedResponsiveNav) {
-	// 			console.log("Close");
-	// 		}
-	// 	});
-	// }, []);
+	const toggleResponsiveNav = () =>
+		dispatch(navigationActions.toggleResponsiveNav());
+	const closeResponsiveNav = () =>
+		dispatch(navigationActions.closeResponsiveNav());
 
 	const navigationClassName = `${style.navigation} ${
 		!showResponsiveNav ? style["navigation--shadow"] : ""
@@ -36,7 +28,11 @@ const Navigation = function () {
 			<header className={navigationClassName}>
 				<div className={style["navigation__logo"]}>
 					<img src={logo} alt="Logo" />
-					<Link className={style["navigation__logo-link"]} to="/movies">
+					<Link
+						className={style["navigation__logo-link"]}
+						to="/movies"
+						onClick={closeResponsiveNav}
+					>
 						React Movies
 					</Link>
 				</div>
@@ -70,6 +66,7 @@ const Navigation = function () {
 						</li>
 					</ul>
 				</nav>
+
 				<div className={style["navigation__responsive-icon"]}>
 					<svg onClick={toggleResponsiveNav}>
 						<use
@@ -102,6 +99,7 @@ const Navigation = function () {
 									className={style["navigation__link"]}
 									activeClassName={style.active}
 									exact
+									onClick={closeResponsiveNav}
 								>
 									Movies
 								</NavLink>
@@ -112,6 +110,7 @@ const Navigation = function () {
 									className={style["navigation__link"]}
 									activeClassName={style.active}
 									exact
+									onClick={closeResponsiveNav}
 								>
 									WatchList
 								</NavLink>

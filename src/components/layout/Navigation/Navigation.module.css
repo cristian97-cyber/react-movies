@@ -99,11 +99,11 @@
 }
 
 .navigation__responsive {
+	display: none;
 	position: absolute;
 	top: 10rem;
 	left: 0;
 	right: 0;
-
 	background-color: var(--color-black);
 	color: #fff;
 	padding: 0 2.5rem;
@@ -198,6 +198,10 @@
 	}
 
 	.navigation__responsive-icon {
+		display: block;
+	}
+
+	.navigation__responsive {
 		display: block;
 	}
 }
