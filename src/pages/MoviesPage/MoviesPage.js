@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useHistory, useLocation } from "react-router";
 
 import style from "./MoviesPage.module.css";
@@ -29,7 +29,7 @@ const MoviesPage = function () {
 	useEffect(() => {
 		const getMovies = async function () {
 			const url = searchQuery
-				? `${API_URL}/search/multi?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=1&include_adult=false`
+				? `${API_URL}/search/multi?api_key=${API_KEY}&language=en-US&query=${searchQuery}&page=${actualPage}&include_adult=false`
 				: `${API_URL}/trending/all/week?api_key=${API_KEY}&page=${actualPage}`;
 
 			const data = await sendHttpRequest({ url });
@@ -42,7 +42,7 @@ const MoviesPage = function () {
 
 				const movie = {
 					id: res.id,
-					image: `${API_POSTER_URL}${res.poster_path}`,
+					image: res.poster_path && `${API_POSTER_URL}${res.poster_path}`,
 					title: res.title || res.name,
 					type: res.media_type,
 					rating: res.vote_average,
@@ -75,7 +75,8 @@ const MoviesPage = function () {
 	}, [searchQuery, actualPage, sendHttpRequest]);
 
 	const goToPage = function (page) {
-		history.push(`${location.pathname}?page=${page}`);
+		if (searchQuery) history.push(`/movies?search=${searchQuery}&page=${page}`);
+		else history.push(`/movies?page=${page}`);
 	};
 
 	return (

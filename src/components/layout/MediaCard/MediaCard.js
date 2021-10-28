@@ -2,8 +2,15 @@ import { Link } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import style from "./MediaCard.module.css";
+import noImageIcon from "../../../img/no-image.svg";
 
 const MediaCard = function (props) {
+	const image = props.image || noImageIcon;
+
+	const imageClassName = props.image
+		? style["media-card__image"]
+		: style["media-card__no-image"];
+
 	return (
 		<div className={`${style["media-card"]} ${props.className}`}>
 			<Link to={`/${props.destination}`}>
@@ -12,8 +19,9 @@ const MediaCard = function (props) {
 						alt={props.alt}
 						width="100%"
 						height="100%"
-						src={props.image}
+						src={image}
 						effect="opacity"
+						className={imageClassName}
 					/>
 				</figure>
 			</Link>
