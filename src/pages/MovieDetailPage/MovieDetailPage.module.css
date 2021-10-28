@@ -1,31 +1,8 @@
 .movie-detail-page {
-	display: flex;
-	align-items: center;
-
 	grid-column: content-start / content-end;
 }
 
-.movie-detail-page__image {
-	margin-right: 5rem;
-	overflow: hidden;
-
-	flex-basis: 50%;
-}
-
-.movie-detail-page__image img {
-	width: 100%;
-}
-
-.movie-detail-page__info p {
-	font-size: 1.7rem;
-	margin-bottom: 1.5rem;
-}
-
-.movie-detail-page__info p span {
-	font-size: 1.7rem;
-	font-weight: 700;
-}
-
+/* 
 .movie-detail-page__watch-on {
 	display: flex;
 	align-items: center;
@@ -52,4 +29,4 @@
 	width: 100%;
 	height: 100%;
 	object-fit: cover;
-}
+} */

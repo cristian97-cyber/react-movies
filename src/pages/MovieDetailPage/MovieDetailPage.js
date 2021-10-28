@@ -1,73 +1,96 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router";
+
 import style from "./MovieDetailPage.module.css";
+import useHttp from "../../hooks/http";
+import { API_URL, API_POSTER_URL, API_KEY } from "../../config";
+import LoadingSpinner from "../../components/layout/LoadingSpinner/LoadingSpinner";
+import Message from "../../components/layout/Message/Message";
+import MovieDetail from "../../components/movies/MovieDetail/MovieDetail";
 
 const MovieDetailPage = function () {
+	const { movieType, movieId } = useParams();
+
+	const [movie, setMovie] = useState(null);
+
+	const [isLoading, error, sendHttpRequest] = useHttp();
+
+	useEffect(() => {
+		const getMovie = async function () {
+			const data = await sendHttpRequest({
+				url: `${API_URL}/${movieType}/${movieId}?api_key=${API_KEY}&language=en-US`,
+			});
+			if (!data) return;
+
+			const movie = {
+				id: data.id,
+				image: data.poster_path && `${API_POSTER_URL}${data.poster_path}`,
+				title: data.title || data.name,
+				releaseDate: data.release_date || data.first_air_date,
+				type: movieType,
+				genres: data.genres,
+				runtime: data.runtime || data.episode_run_time,
+				languages: data.spoken_languages,
+				plot: data.overview,
+			};
+			setMovie(movie);
+		};
+		getMovie();
+	}, []);
+
 	return (
 		<main className={style["movie-detail-page"]}>
-			<figure className={style["movie-detail-page__image"]}>
-				<img
-					src="https://m.media-amazon.com/images/M/MV5BNDJjMzc4NGYtZmFmNS00YWY3LThjMzQtYzJlNGFkZGRiOWI1XkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_SX300.jpg"
-					alt="Lucifer"
-				/>
-			</figure>
-			<div className={style["movie-detail-page__info"]}>
-				<p>
-					<span>Title:</span> Lucifer
-				</p>
-				<p>
-					<span>Year: </span> 2016-2021
-				</p>
-				<p>
-					<span>Type:</span> Series
-				</p>
-				<p>
-					<span>Rating:</span> 8.1
-				</p>
-				<p>
-					<span>Genre:</span> Crime, Drama, Fantasy
-				</p>
-				<p>
-					<span>Runtime:</span> Crime, Drama, Fantasy
-				</p>
-				<p>
-					<span>Language:</span> English
-				</p>
-				<p>
-					<span>Release date:</span> 25 Jan 2016
-				</p>
-				<p>
-					<span>Actors:</span> Tom Ellis, Lauren German, Kevin Alejandro
-				</p>
-				<p>
-					<span>Plot:</span> Lucifer Morningstar has decided he's had enough of
-					being the dutiful servant in Hell and decides to spend some time on
-					Earth to better understand humanity. He settles in Los Angeles - the
-					City of Angels.
-				</p>
+			{isLoading && <LoadingSpinner />}
 
-				<div className={style["movie-detail-page__watch-on"]}>
-					<p>Watch on:</p>
-					<figure>
-						<img
-							src="https://www.justwatch.com/images/icon/207360008/s100/icon.webp"
-							alt="Netflix"
-						/>
-					</figure>
-					<figure>
-						<img
-							src="https://www.justwatch.com/images/icon/52449861/s100/icon.webp"
-							alt="Prime Video"
-						/>
-					</figure>
-					<figure>
-						<img
-							src="https://www.justwatch.com/images/icon/147638351/s100/icon.webp"
-							alt="Disney Plus"
-						/>
-					</figure>
-				</div>
-			</div>
+			{!isLoading && error && <Message type="error" message={error.message} />}
+
+			{!isLoading && !error && movie && <MovieDetail movie={movie} />}
 		</main>
 	);
+
+	// return (
+	// 	<main className={style["movie-detail-page"]}>
+	// 		<div className={style["movie-detail-page__info"]}>
+	// 			<p>
+	// 				<span>Language:</span> English
+	// 			</p>
+	// 			<p>
+	// 				<span>Release date:</span> 25 Jan 2016
+	// 			</p>
+	// 			<p>
+	// 				<span>Actors:</span> Tom Ellis, Lauren German, Kevin Alejandro
+	// 			</p>
+	// 			<p>
+	// 				<span>Plot:</span> Lucifer Morningstar has decided he's had enough of
+	// 				being the dutiful servant in Hell and decides to spend some time on
+	// 				Earth to better understand humanity. He settles in Los Angeles - the
+	// 				City of Angels.
+	// 			</p>
+
+	// 			<div className={style["movie-detail-page__watch-on"]}>
+	// 				<p>Watch on:</p>
+	// 				<figure>
+	// 					<img
+	// 						src="https://www.justwatch.com/images/icon/207360008/s100/icon.webp"
+	// 						alt="Netflix"
+	// 					/>
+	// 				</figure>
+	// 				<figure>
+	// 					<img
+	// 						src="https://www.justwatch.com/images/icon/52449861/s100/icon.webp"
+	// 						alt="Prime Video"
+	// 					/>
+	// 				</figure>
+	// 				<figure>
+	// 					<img
+	// 						src="https://www.justwatch.com/images/icon/147638351/s100/icon.webp"
+	// 						alt="Disney Plus"
+	// 					/>
+	// 				</figure>
+	// 			</div>
+	// 		</div>
+	// 	</main>
+	// );
 };
 
 export default MovieDetailPage;

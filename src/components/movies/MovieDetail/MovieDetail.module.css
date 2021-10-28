@@ -1,0 +1,31 @@
+.movie-detail {
+	display: flex;
+	align-items: center;
+
+	margin-bottom: 5rem;
+}
+
+.movie-detail__figure {
+	margin-right: 5rem;
+	overflow: hidden;
+
+	flex-basis: 30%;
+}
+
+.movie-detail__info {
+	flex-basis: 70%;
+}
+
+.movie-detail__figure img {
+	width: 100%;
+}
+
+.movie-detail__info p {
+	font-size: 1.7rem;
+	margin-bottom: 1rem;
+}
+
+.movie-detail__info p span {
+	font-size: 1.7rem;
+	font-weight: 700;
+}

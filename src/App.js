@@ -17,14 +17,14 @@ const App = function () {
 					<Redirect to="/movies" />
 				</Route>
 
-				<Route path="/movies">
+				<Route path="/movies" exact>
 					<MoviesPage />
 				</Route>
-				<Route path="/watchlist">
-					<WatchListPage />
-				</Route>
-				<Route path="/:movieId" exact>
+				<Route path="/movies/:movieType/:movieId" exact>
 					<MovieDetailPage />
+				</Route>
+				<Route path="/watchlist" exact>
+					<WatchListPage />
 				</Route>
 				<Route path="*">
 					<div>NotFound</div>

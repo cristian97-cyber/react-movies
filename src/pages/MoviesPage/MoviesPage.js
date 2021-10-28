@@ -44,10 +44,8 @@ const MoviesPage = function () {
 					id: res.id,
 					image: res.poster_path && `${API_POSTER_URL}${res.poster_path}`,
 					title: res.title || res.name,
-					type: res.media_type,
 					rating: res.vote_average,
-					language: res.original_language,
-					plot: res.overview,
+					type: res.media_type,
 				};
 				foundMovies.push(movie);
 			});
@@ -59,15 +57,6 @@ const MoviesPage = function () {
 			} else {
 				setNoMovies(false);
 			}
-
-			foundMovies.forEach(async movie => {
-				const url = `${API_URL}/${movie.type}/${movie.id}?api_key=${API_KEY}`;
-				const data = await sendHttpRequest({ url });
-				if (!data) return;
-				movie.genres = data.genres;
-				movie.runtime = data.runtime || data.episode_run_time;
-				movie.releaseDate = data.release_date || data.first_air_date;
-			});
 
 			setMovies(foundMovies);
 		};
@@ -85,10 +74,12 @@ const MoviesPage = function () {
 			onClick={() => dispatch(navigationActions.closeResponsiveNav())}
 		>
 			{isLoading && <LoadingSpinner />}
+
 			{!isLoading && error && <Message type="error" message={error.message} />}
 			{!isLoading && !error && noMovies && (
 				<Message type="info" message="There are no data" />
 			)}
+
 			{!isLoading && !error && !noMovies && <MoviesList movies={movies} />}
 			{!isLoading && !error && !noMovies && (
 				<Pagination

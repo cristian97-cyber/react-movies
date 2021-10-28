@@ -8,14 +8,8 @@ const MoviesList = function (props) {
 			id={movie.id}
 			image={movie.image}
 			title={movie.title}
-			type={movie.type}
 			rating={movie.rating}
-			genres={movie.genres}
-			runtime={movie.runtime}
-			language={movie.language}
-			releaseDate={movie.releaseDate}
-			actors={movie.actors}
-			plot={movie.plot}
+			type={movie.type}
 		/>
 	));
 
