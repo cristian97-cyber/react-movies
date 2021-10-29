@@ -36,7 +36,7 @@ const MovieDetailPage = function () {
 			setMovie(movie);
 		};
 		getMovie();
-	}, []);
+	}, [movieType, movieId, sendHttpRequest]);
 
 	return (
 		<main className={style["movie-detail-page"]}>
@@ -47,50 +47,6 @@ const MovieDetailPage = function () {
 			{!isLoading && !error && movie && <MovieDetail movie={movie} />}
 		</main>
 	);
-
-	// return (
-	// 	<main className={style["movie-detail-page"]}>
-	// 		<div className={style["movie-detail-page__info"]}>
-	// 			<p>
-	// 				<span>Language:</span> English
-	// 			</p>
-	// 			<p>
-	// 				<span>Release date:</span> 25 Jan 2016
-	// 			</p>
-	// 			<p>
-	// 				<span>Actors:</span> Tom Ellis, Lauren German, Kevin Alejandro
-	// 			</p>
-	// 			<p>
-	// 				<span>Plot:</span> Lucifer Morningstar has decided he's had enough of
-	// 				being the dutiful servant in Hell and decides to spend some time on
-	// 				Earth to better understand humanity. He settles in Los Angeles - the
-	// 				City of Angels.
-	// 			</p>
-
-	// 			<div className={style["movie-detail-page__watch-on"]}>
-	// 				<p>Watch on:</p>
-	// 				<figure>
-	// 					<img
-	// 						src="https://www.justwatch.com/images/icon/207360008/s100/icon.webp"
-	// 						alt="Netflix"
-	// 					/>
-	// 				</figure>
-	// 				<figure>
-	// 					<img
-	// 						src="https://www.justwatch.com/images/icon/52449861/s100/icon.webp"
-	// 						alt="Prime Video"
-	// 					/>
-	// 				</figure>
-	// 				<figure>
-	// 					<img
-	// 						src="https://www.justwatch.com/images/icon/147638351/s100/icon.webp"
-	// 						alt="Disney Plus"
-	// 					/>
-	// 				</figure>
-	// 			</div>
-	// 		</div>
-	// 	</main>
-	// );
 };
 
 export default MovieDetailPage;

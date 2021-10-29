@@ -1,0 +1,15 @@
+.provider-item:not(:last-child) {
+	margin-right: 1rem;
+}
+
+.provider-item figure {
+	width: 6rem;
+	height: 6rem;
+	border-radius: 5px;
+	box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+	overflow: hidden;
+}
+
+.provider-item figure img {
+	width: 100%;
+}

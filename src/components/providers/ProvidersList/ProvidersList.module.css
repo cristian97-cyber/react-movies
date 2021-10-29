@@ -1,0 +1,29 @@
+.providers-list p {
+	font-size: 1.7rem;
+	font-weight: 700;
+	margin-bottom: 1rem;
+}
+
+.providers-list__spinner,
+.providers-list__message {
+	margin-top: 3rem;
+}
+
+.providers-list__spinner svg {
+	width: 4rem;
+	height: 4rem;
+}
+
+.providers-list__message svg {
+	width: 5rem;
+	height: 5rem;
+}
+
+.providers-list__message p {
+	font-size: 1.5rem;
+}
+
+.providers-list ul {
+	display: flex;
+	list-style: none;
+}

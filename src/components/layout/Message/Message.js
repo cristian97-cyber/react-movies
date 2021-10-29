@@ -4,7 +4,7 @@ import icons from "../../../img/icons.svg";
 const Message = function (props) {
 	const className = `${style.message} ${
 		props.type === "info" ? style["message--info"] : style["message--error"]
-	}`;
+	} ${props.className}`;
 
 	const messageIcon = `${icons}#${
 		props.type === "info" ? "icon-info_outline" : "icon-error_outline"
