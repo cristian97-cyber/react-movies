@@ -1,0 +1,34 @@
+.movie-trailer p {
+	font-size: 1.7rem;
+	font-weight: 700;
+	margin-bottom: 2rem;
+}
+
+.movie-trailer__spinner,
+.movie-trailer__message {
+	margin-top: 3rem;
+}
+
+.movie-trailer__spinner svg {
+	width: 4rem;
+	height: 4rem;
+}
+
+.movie-trailer__message svg {
+	width: 5rem;
+	height: 5rem;
+}
+
+.movie-trailer__message p {
+	font-size: 1.5rem;
+}
+
+.movie-trailer__video {
+	display: flex;
+	justify-content: center;
+}
+
+.movie-trailer__video iframe {
+	width: 56rem;
+	height: 31.5rem;
+}

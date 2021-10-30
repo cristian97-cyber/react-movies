@@ -64,7 +64,6 @@ const Navigation = function () {
 								to="/movies"
 								className={style["navigation__link"]}
 								activeClassName={style.active}
-								exact
 							>
 								Movies
 							</NavLink>
@@ -111,7 +110,6 @@ const Navigation = function () {
 									to="/movies"
 									className={style["navigation__link"]}
 									activeClassName={style.active}
-									exact
 									onClick={closeResponsiveNav}
 								>
 									Movies

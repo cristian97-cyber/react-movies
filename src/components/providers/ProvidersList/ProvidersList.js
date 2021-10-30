@@ -2,49 +2,26 @@ import { useState, useEffect } from "react";
 
 import style from "./ProvidersList.module.css";
 import useHttp from "../../../hooks/http";
-import {
-	API_KEY,
-	API_URL,
-	API_POSTER_URL,
-	GEOCODING_API_URL,
-} from "../../../config";
+import { API_KEY, API_URL, API_POSTER_URL } from "../../../config";
 import LoadingSpinner from "../../layout/LoadingSpinner/LoadingSpinner";
 import Message from "../../layout/Message/Message";
 import ProviderItem from "../ProviderItem/ProviderItem";
 
 const ProvidersList = function (props) {
 	const movie = props.movie;
+	const country = props.country;
+	const isLoadingCountry = props.isLoadingCountry;
+	const countryError = props.countryError;
+	const geoError = props.geoError;
 
 	const [providers, setProviders] = useState([]);
 	const [noProviders, setNoProviders] = useState(false);
-	const [country, setCountry] = useState(null);
-	const [geoError, setGeoError] = useState("");
 
 	const [isLoading, error, sendHttpRequest] = useHttp();
 
 	const providersContent = providers.map(provider => (
 		<ProviderItem key={provider.id} provider={provider} />
 	));
-
-	useEffect(() => {
-		const success = async function (pos) {
-			const data = await sendHttpRequest({
-				url: `${GEOCODING_API_URL}?latitude=${pos.latitude}&longitude=${pos.longitude}`,
-			});
-			if (!data) return;
-
-			setCountry(data.countryCode);
-		};
-
-		const error = () => setGeoError("Unable to retrieve your location");
-
-		if (!navigator.geolocation) {
-			setGeoError("Geolocation is not supported by your browser");
-			return;
-		}
-
-		navigator.geolocation.getCurrentPosition(success, error);
-	}, [sendHttpRequest]);
 
 	useEffect(() => {
 		const getProviders = async function () {
@@ -82,8 +59,16 @@ const ProvidersList = function (props) {
 		<div className={style["providers-list"]}>
 			<p>Watch on:</p>
 
-			{isLoading && (
+			{(isLoading || isLoadingCountry) && (
 				<LoadingSpinner className={style["providers-list__spinner"]} />
+			)}
+
+			{!isLoading && countryError && (
+				<Message
+					type="error"
+					message={countryError.message}
+					className={style["providers-list__message"]}
+				/>
 			)}
 
 			{!isLoading && error && (
@@ -94,7 +79,7 @@ const ProvidersList = function (props) {
 				/>
 			)}
 
-			{!isLoading && !error && geoError && (
+			{!isLoading && geoError && (
 				<Message
 					type="error"
 					message={geoError}
@@ -102,7 +87,7 @@ const ProvidersList = function (props) {
 				/>
 			)}
 
-			{!isLoading && !error && !geoError && noProviders && (
+			{!isLoading && noProviders && (
 				<Message
 					type="info"
 					message="Actually there are no stream providers for this movie"
@@ -110,9 +95,12 @@ const ProvidersList = function (props) {
 				/>
 			)}
 
-			{!isLoading && !error && !geoError && !noProviders && (
-				<ul>{providersContent}</ul>
-			)}
+			{!isLoading &&
+				!isLoadingCountry &&
+				!error &&
+				!countryError &&
+				!geoError &&
+				!noProviders && <ul>{providersContent}</ul>}
 		</div>
 	);
 };

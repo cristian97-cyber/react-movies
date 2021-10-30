@@ -1,15 +1,45 @@
+import { useEffect, useState } from "react";
+
 import style from "./MovieDetail.module.css";
 import noImageIcon from "../../../img/no-image.svg";
+import useHttp from "../../../hooks/http";
+import { GEOCODING_API_URL } from "../../../config";
 import ProvidersList from "../../providers/ProvidersList/ProvidersList";
+import MovieTrailer from "../MovieTrailer/MovieTrailer";
 
 const MovieDetail = function (props) {
 	const movie = props.movie;
+
+	const [country, setCountry] = useState(null);
+	const [geoError, setGeoError] = useState("");
 
 	const image = movie.image || noImageIcon;
 
 	const figureClassName = movie.image
 		? style["movie-detail__card-figure"]
 		: style["movie-detail__card-figure--no-image"];
+
+	const [isLoading, error, sendHttpRequest] = useHttp();
+
+	useEffect(() => {
+		const success = async function (pos) {
+			const data = await sendHttpRequest({
+				url: `${GEOCODING_API_URL}?latitude=${pos.latitude}&longitude=${pos.longitude}`,
+			});
+			if (!data) return;
+
+			setCountry(data.countryCode);
+		};
+
+		const error = () => setGeoError("Unable to retrieve your location");
+
+		if (!navigator.geolocation) {
+			setGeoError("Geolocation is not supported by your browser");
+			return;
+		}
+
+		navigator.geolocation.getCurrentPosition(success, error);
+	}, [sendHttpRequest]);
 
 	return (
 		<div className={style["movie-detail"]}>
@@ -59,7 +89,21 @@ const MovieDetail = function (props) {
 					<span>Plot: </span> {movie.plot || "N/A"}
 				</p>
 
-				<ProvidersList movie={movie} />
+				<ProvidersList
+					movie={movie}
+					country={country}
+					isLoadingCountry={isLoading}
+					countryError={error}
+					geoError={geoError}
+				/>
+
+				<MovieTrailer
+					movie={movie}
+					country={country}
+					isLoadingCountry={isLoading}
+					countryError={error}
+					geoError={geoError}
+				/>
 			</div>
 		</div>
 	);
