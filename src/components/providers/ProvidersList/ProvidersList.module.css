@@ -31,3 +31,23 @@
 	display: flex;
 	list-style: none;
 }
+
+@media only screen and (max-width: 992px) {
+	.providers-list p {
+		font-size: 2rem;
+	}
+
+	.providers-list__spinner svg {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.providers-list__message svg {
+		width: 4.5rem;
+		height: 4.5rem;
+	}
+
+	.providers-list__message p {
+		font-size: 1.8rem;
+	}
+}

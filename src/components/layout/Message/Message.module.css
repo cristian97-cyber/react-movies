@@ -29,3 +29,25 @@
 .message--error p {
 	color: var(--color-error);
 }
+
+@media only screen and (max-width: 992px) {
+	.message svg {
+		width: 6.5rem;
+		height: 6.5rem;
+	}
+
+	.message p {
+		font-size: 2rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.message svg {
+		width: 5.5rem;
+		height: 5.5rem;
+	}
+
+	.message p {
+		font-size: 1.8rem;
+	}
+}

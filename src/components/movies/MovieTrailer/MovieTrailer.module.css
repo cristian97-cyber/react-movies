@@ -29,6 +29,31 @@
 }
 
 .movie-trailer__video iframe {
-	width: 56rem;
-	height: 31.5rem;
+	width: 560px;
+	height: 315px;
+}
+
+@media only screen and (max-width: 992px) {
+	.movie-trailer p {
+		font-size: 2rem;
+	}
+
+	.movie-trailer__spinner svg {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
+
+	.movie-trailer__message svg {
+		width: 4.5rem;
+		height: 4.5rem;
+	}
+
+	.movie-trailer__message p {
+		font-size: 1.8rem;
+	}
+
+	.movie-trailer__video iframe {
+		width: 400px;
+		height: 250px;
+	}
 }

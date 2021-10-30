@@ -13,3 +13,10 @@
 .provider-item figure img {
 	width: 100%;
 }
+
+@media only screen and (max-width: 992px) {
+	.provider-item figure {
+		width: 7rem;
+		height: 7rem;
+	}
+}

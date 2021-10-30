@@ -62,6 +62,8 @@
 }
 
 .movie-detail__info {
+	overflow: hidden;
+
 	flex-basis: 70%;
 }
 
@@ -77,4 +79,50 @@
 .movie-detail__info p span {
 	font-size: 1.7rem;
 	font-weight: 700;
+}
+
+@media only screen and (max-width: 1200px) {
+	.movie-detail__card {
+		flex-basis: 35%;
+	}
+
+	.movie-detail__info {
+		flex-basis: 65%;
+	}
+}
+
+@media only screen and (max-width: 992px) {
+	.movie-detail__card {
+		flex-basis: 40%;
+	}
+
+	.movie-detail__info {
+		flex-basis: 60%;
+	}
+
+	.movie-detail__info p,
+	.movie-detail__info p span {
+		font-size: 2rem;
+	}
+}
+
+@media only screen and (max-width: 768px) {
+	.movie-detail {
+		flex-direction: column;
+	}
+
+	.movie-detail__card,
+	.movie-detail__info {
+		margin: 0 auto;
+
+		flex-basis: auto;
+	}
+
+	.movie-detail__card {
+		margin-bottom: 5rem;
+	}
+
+	.movie-detail__card-figure {
+		width: 40rem;
+	}
 }
