@@ -1,3 +1,5 @@
 .watchlist-page {
+	position: relative;
+
 	grid-column: content-start / content-end;
 }
