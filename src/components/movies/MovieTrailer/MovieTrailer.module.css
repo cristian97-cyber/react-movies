@@ -38,9 +38,9 @@
 		font-size: 2rem;
 	}
 
-	.movie-trailer__spinner svg {
-		width: 3.5rem;
-		height: 3.5rem;
+	.movie-trailer__video iframe {
+		width: 400px;
+		height: 250px;
 	}
 
 	.movie-trailer__message svg {
@@ -51,9 +51,43 @@
 	.movie-trailer__message p {
 		font-size: 1.8rem;
 	}
+}
+
+@media only screen and (max-width: 576px) {
+	.movie-trailer__video iframe {
+		width: 350px;
+		height: 250px;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.movie-trailer p {
+		font-size: 1.8rem;
+	}
+
+	.movie-trailer__spinner svg {
+		width: 3.5rem;
+		height: 3.5rem;
+	}
 
 	.movie-trailer__video iframe {
-		width: 400px;
-		height: 250px;
+		width: 275px;
+		height: 175px;
+	}
+
+	.movie-trailer__message svg {
+		width: 4rem;
+		height: 4rem;
+	}
+
+	.movie-trailer__message p {
+		font-size: 1.6rem;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.movie-trailer__video iframe {
+		width: 225px;
+		height: 175px;
 	}
 }

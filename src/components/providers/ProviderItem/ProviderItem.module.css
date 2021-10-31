@@ -20,3 +20,10 @@
 		height: 7rem;
 	}
 }
+
+@media only screen and (max-width: 400px) {
+	.provider-item figure {
+		width: 6rem;
+		height: 6rem;
+	}
+}

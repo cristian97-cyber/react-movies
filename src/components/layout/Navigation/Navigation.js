@@ -1,4 +1,3 @@
-import { useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link, NavLink, useHistory } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
@@ -8,9 +7,7 @@ import logo from "../../../img/logo.svg";
 import icons from "../../../img/icons.svg";
 import { navigationActions } from "../../../store/navigation";
 
-const Navigation = function () {
-	const searchInputRef = useRef();
-
+const Navigation = function (props) {
 	const showResponsiveNav = useSelector(
 		state => state.navigation.showResponsiveNav
 	);
@@ -25,12 +22,14 @@ const Navigation = function () {
 	const closeResponsiveNav = () =>
 		dispatch(navigationActions.closeResponsiveNav());
 
+	const searchInputChangeHandler = function (e) {
+		props.onChangeQuery(e.target.value);
+	};
+
 	const submitHandler = function (e) {
 		e.preventDefault();
 
-		const searchQuery = searchInputRef.current.value;
-
-		if (searchQuery) history.push(`/movies?search=${searchQuery}`);
+		if (props.query) history.push(`/movies?search=${props.query}`);
 		else history.push("/movies");
 	};
 
@@ -55,7 +54,12 @@ const Navigation = function () {
 					<svg className={style["navigation__search-icon"]}>
 						<use href={`${icons}#icon-search`} />
 					</svg>
-					<input type="text" placeholder="Search Movie" ref={searchInputRef} />
+					<input
+						type="text"
+						placeholder="Search Movie"
+						value={props.query}
+						onChange={searchInputChangeHandler}
+					/>
 				</form>
 				<nav className={style["navigation__nav"]}>
 					<ul>
@@ -64,6 +68,7 @@ const Navigation = function () {
 								to="/movies"
 								className={style["navigation__link"]}
 								activeClassName={style.active}
+								onClick={closeResponsiveNav}
 							>
 								Movies
 							</NavLink>
@@ -74,6 +79,7 @@ const Navigation = function () {
 								className={style["navigation__link"]}
 								activeClassName={style.active}
 								exact
+								onClick={closeResponsiveNav}
 							>
 								WatchList
 							</NavLink>

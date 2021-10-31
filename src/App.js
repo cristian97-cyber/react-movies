@@ -1,4 +1,5 @@
-import { Switch, Route, Redirect } from "react-router";
+import { useState, useEffect } from "react";
+import { Switch, Route, Redirect, useLocation } from "react-router";
 
 import Navigation from "./components/layout/Navigation/Navigation";
 import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
@@ -7,10 +8,24 @@ import WatchListPage from "./pages/WatchListPage/WatchListPage";
 import MovieDetailPage from "./pages/MovieDetailPage/MovieDetailPage";
 
 const App = function () {
+	const location = useLocation();
+	const urlParams = new URLSearchParams(location.search);
+	const searchQueryParam = urlParams.get("search") || "";
+
+	const [searchQuery, setSearchQuery] = useState("");
+
+	useEffect(() => {
+		setSearchQuery(searchQueryParam);
+	}, [searchQueryParam]);
+
+	const changeQuery = function (newQuery) {
+		setSearchQuery(newQuery);
+	};
+
 	return (
 		<>
-			<Navigation />
-			<SearchMovie />
+			<Navigation query={searchQuery} onChangeQuery={changeQuery} />
+			<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
 
 			<Switch>
 				<Route path="/" exact>

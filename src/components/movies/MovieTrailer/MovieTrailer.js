@@ -53,7 +53,7 @@ const MovieTrailer = function (props) {
 			<p>Trailer:</p>
 
 			{(isLoading || isLoadingCountry) && (
-				<LoadingSpinner className={style["providers-list__spinner"]} />
+				<LoadingSpinner className={style["movie-trailer__spinner"]} />
 			)}
 
 			{!isLoading && error && (

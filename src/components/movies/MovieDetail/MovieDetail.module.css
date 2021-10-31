@@ -52,15 +52,6 @@
 	outline: none;
 }
 
-.movie-detail__btn:hover {
-	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
-	transform: translateY(-2px);
-}
-
-.movie-detail__btn:active {
-	transform: translateY(0);
-}
-
 .movie-detail__info {
 	overflow: hidden;
 
@@ -81,6 +72,17 @@
 	font-weight: 700;
 }
 
+@media (hover: hover) {
+	.movie-detail__btn:hover {
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+		transform: translateY(-2px);
+	}
+
+	.movie-detail__btn:active {
+		transform: translateY(0);
+	}
+}
+
 @media only screen and (max-width: 1200px) {
 	.movie-detail__card {
 		flex-basis: 35%;
@@ -94,6 +96,10 @@
 @media only screen and (max-width: 992px) {
 	.movie-detail__card {
 		flex-basis: 40%;
+	}
+
+	.movie-detail__btn {
+		font-size: 1.8rem;
 	}
 
 	.movie-detail__info {
@@ -124,5 +130,26 @@
 
 	.movie-detail__card-figure {
 		width: 40rem;
+	}
+}
+
+@media only screen and (max-width: 400px) {
+	.movie-detail__card-figure {
+		width: 30rem;
+	}
+
+	.movie-detail__btn {
+		font-size: 1.6rem;
+	}
+
+	.movie-detail__info p,
+	.movie-detail__info p span {
+		font-size: 1.8rem;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+	.movie-detail__card-figure {
+		width: 27.5rem;
 	}
 }
