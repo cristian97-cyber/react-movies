@@ -21,7 +21,12 @@ const WatchListPage = function () {
 
 	useEffect(() => {
 		dispatch(watchlistActions.setPageItems(actualPage));
-	}, [actualPage, dispatch]);
+	}, [watchlist.totItems, actualPage, dispatch]);
+
+	useEffect(() => {
+		if (watchlist.numPages < actualPage)
+			history.replace(`/watchlist?page=${actualPage - 1}`);
+	}, [watchlist.numPages, actualPage, history]);
 
 	const goToPage = function (page) {
 		history.push(`/watchlist?page=${page}`);
@@ -40,7 +45,7 @@ const WatchListPage = function () {
 			{watchlist.numItems > 0 && (
 				<Pagination
 					actualPage={actualPage}
-					numPages={watchlist.totPages}
+					numPages={watchlist.numPages}
 					onChangePage={goToPage}
 				/>
 			)}

@@ -5,34 +5,35 @@ const watchlistSlice = createSlice({
 	initialState: {
 		totItems: [],
 		numItems: 0,
-		totPages: 0,
 		pageItems: [],
+		numPages: 0,
 	},
+
 	reducers: {
 		setItems(state, action) {
 			state.totItems = action.payload;
 			state.numItems = state.totItems.length;
 
-			state.totPages = Math.floor(state.numItems / 20);
-			if (state.numItems % 20 > 0) state.totPages++;
+			state.numPages = Math.floor(state.numItems / 20);
+			if (state.numItems % 20 > 0) state.numPages++;
 		},
 
 		addItem(state, action) {
 			state.totItems.push(action.payload);
 			state.numItems++;
 
-			localStorage.setItem("watchlist", JSON.stringify(state.totItems));
+			state.numPages = Math.floor(state.numItems / 20);
+			if (state.numItems % 20 > 0) state.numPages++;
 
-			state.totPages = Math.floor(state.numItems / 20);
-			if (state.numItems % 20 > 0) state.totPages++;
+			localStorage.setItem("watchlist", JSON.stringify(state.totItems));
 		},
 
 		removeItem(state, action) {
 			state.totItems = state.totItems.filter(it => it.id !== action.payload);
 			state.numItems--;
 
-			state.totPages = Math.floor(state.numItems / 20);
-			if (state.numItems % 20 > 0) state.totPages++;
+			state.numPages = Math.floor(state.numItems / 20);
+			if (state.numItems % 20 > 0) state.numPages++;
 
 			if (state.numItems > 0) {
 				localStorage.setItem("watchlist", JSON.stringify(state.totItems));
@@ -45,8 +46,7 @@ const watchlistSlice = createSlice({
 			const page = action.payload;
 
 			const firstItemIndex = (page - 1) * 20;
-			const lastItemIndex = page < state.totPages ? page * 20 : state.numItems;
-
+			const lastItemIndex = page < state.numPages ? page * 20 : state.numItems;
 			state.pageItems = state.totItems.slice(firstItemIndex, lastItemIndex);
 		},
 	},
