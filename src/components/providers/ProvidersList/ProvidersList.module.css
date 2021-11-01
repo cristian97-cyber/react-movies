@@ -8,14 +8,8 @@
 	margin-bottom: 1rem;
 }
 
-.providers-list__spinner,
 .providers-list__message {
 	margin-top: 3rem;
-}
-
-.providers-list__spinner svg {
-	width: 4rem;
-	height: 4rem;
 }
 
 .providers-list__message svg {
@@ -50,11 +44,6 @@
 @media only screen and (max-width: 400px) {
 	.providers-list p {
 		font-size: 1.8rem;
-	}
-
-	.providers-list__spinner svg {
-		width: 3.5rem;
-		height: 3.5rem;
 	}
 
 	.providers-list__message svg {

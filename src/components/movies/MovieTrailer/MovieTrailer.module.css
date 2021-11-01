@@ -4,14 +4,8 @@
 	margin-bottom: 2rem;
 }
 
-.movie-trailer__spinner,
 .movie-trailer__message {
 	margin-top: 3rem;
-}
-
-.movie-trailer__spinner svg {
-	width: 4rem;
-	height: 4rem;
 }
 
 .movie-trailer__message svg {
@@ -63,11 +57,6 @@
 @media only screen and (max-width: 400px) {
 	.movie-trailer p {
 		font-size: 1.8rem;
-	}
-
-	.movie-trailer__spinner svg {
-		width: 3.5rem;
-		height: 3.5rem;
 	}
 
 	.movie-trailer__video iframe {

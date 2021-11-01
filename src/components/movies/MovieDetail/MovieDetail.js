@@ -3,7 +3,13 @@ import { useEffect, useState } from "react";
 import style from "./MovieDetail.module.css";
 import noImageIcon from "../../../img/no-image.svg";
 import useHttp from "../../../hooks/http";
-import { GEOCODING_API_URL } from "../../../config";
+import {
+	API_URL,
+	API_KEY,
+	GEOCODING_API_URL,
+	API_POSTER_URL,
+} from "../../../config";
+import LoadingSpinner from "../../layout/LoadingSpinner/LoadingSpinner";
 import ProvidersList from "../../providers/ProvidersList/ProvidersList";
 import MovieTrailer from "../MovieTrailer/MovieTrailer";
 
@@ -12,6 +18,10 @@ const MovieDetail = function (props) {
 
 	const [country, setCountry] = useState(null);
 	const [geoError, setGeoError] = useState("");
+	const [providers, setProviders] = useState([]);
+	const [noProviders, setNoProviders] = useState(false);
+	const [video, setVideo] = useState(null);
+	const [noVideo, setNoVideo] = useState(false);
 
 	const image = movie.image || noImageIcon;
 
@@ -34,12 +44,73 @@ const MovieDetail = function (props) {
 		const error = () => setGeoError("Unable to retrieve your location");
 
 		if (!navigator.geolocation) {
-			setGeoError("Geolocation is not supported by your browser");
+			setGeoError("Unable to retrieve your location");
 			return;
 		}
 
 		navigator.geolocation.getCurrentPosition(success, error);
 	}, [sendHttpRequest]);
+
+	useEffect(() => {
+		const getProviders = async function () {
+			if (!country) return;
+
+			const data = await sendHttpRequest({
+				url: `${API_URL}/${movie.type}/${movie.id}/watch/providers?api_key=${API_KEY}`,
+			});
+			if (!data) return;
+
+			if (!data.results[country] || !data.results[country].flatrate) {
+				setNoProviders(true);
+				return;
+			} else {
+				setNoProviders(false);
+			}
+
+			const foundProviders = [];
+
+			data.results[country].flatrate.forEach(pro => {
+				const provider = {
+					id: pro.provider_id,
+					image: `${API_POSTER_URL}/${pro.logo_path}`,
+					name: pro.provider_name,
+				};
+				foundProviders.push(provider);
+			});
+
+			setProviders(foundProviders);
+		};
+
+		const getVideo = async function () {
+			if (!country && !error && !geoError) return;
+
+			const data = await sendHttpRequest({
+				url: `${API_URL}/${movie.type}/${
+					movie.id
+				}/videos?api_key=${API_KEY}&language=${country || "en-US"}`,
+			});
+			if (!data) return;
+
+			if (data.results.length === 0) {
+				setNoVideo(true);
+				return;
+			} else {
+				setNoVideo(false);
+			}
+
+			for (const foundVideo of data.results) {
+				if (foundVideo.site === "YouTube") {
+					setVideo(foundVideo.key);
+					return;
+				}
+			}
+
+			setNoVideo(true);
+		};
+
+		getProviders();
+		getVideo();
+	}, [country, error, geoError, movie, sendHttpRequest]);
 
 	return (
 		<div className={style["movie-detail"]}>
@@ -89,21 +160,22 @@ const MovieDetail = function (props) {
 					<span>Plot: </span> {movie.plot || "N/A"}
 				</p>
 
-				<ProvidersList
-					movie={movie}
-					country={country}
-					isLoadingCountry={isLoading}
-					countryError={error}
-					geoError={geoError}
-				/>
+				{isLoading && (
+					<LoadingSpinner className={style["movie-detail__spinner"]} />
+				)}
 
-				<MovieTrailer
-					movie={movie}
-					country={country}
-					isLoadingCountry={isLoading}
-					countryError={error}
-					geoError={geoError}
-				/>
+				{!isLoading && (
+					<ProvidersList
+						providers={providers}
+						noProviders={noProviders}
+						error={error}
+						geoError={geoError}
+					/>
+				)}
+
+				{!isLoading && (
+					<MovieTrailer video={video} noVideo={noVideo} error={error} />
+				)}
 			</div>
 		</div>
 	);

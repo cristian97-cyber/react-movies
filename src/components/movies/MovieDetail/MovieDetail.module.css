@@ -72,6 +72,15 @@
 	font-weight: 700;
 }
 
+.movie-detail__spinner {
+	margin-top: 3rem;
+}
+
+.movie-detail__spinner svg {
+	width: 4rem;
+	height: 4rem;
+}
+
 @media (hover: hover) {
 	.movie-detail__btn:hover {
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
@@ -145,6 +154,11 @@
 	.movie-detail__info p,
 	.movie-detail__info p span {
 		font-size: 1.8rem;
+	}
+
+	.movie-detail__spinner svg {
+		width: 3.5rem;
+		height: 3.5rem;
 	}
 }
 
