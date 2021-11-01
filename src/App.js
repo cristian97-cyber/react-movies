@@ -8,6 +8,7 @@ import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import WatchListPage from "./pages/WatchListPage/WatchListPage";
 import MovieDetailPage from "./pages/MovieDetailPage/MovieDetailPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 
 const App = function () {
 	const dispatch = useDispatch();
@@ -36,25 +37,31 @@ const App = function () {
 
 	return (
 		<>
-			<Navigation query={searchQuery} onChangeQuery={changeQuery} />
-			<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
-
 			<Switch>
 				<Route path="/" exact>
 					<Redirect to="/movies" />
 				</Route>
 
 				<Route path="/movies" exact>
+					<Navigation query={searchQuery} onChangeQuery={changeQuery} />
+					<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
+
 					<MoviesPage />
 				</Route>
 				<Route path="/movies/:movieType/:movieId" exact>
+					<Navigation query={searchQuery} onChangeQuery={changeQuery} />
+					<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
+
 					<MovieDetailPage />
 				</Route>
 				<Route path="/watchlist" exact>
+					<Navigation query={searchQuery} onChangeQuery={changeQuery} />
+					<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
+
 					<WatchListPage />
 				</Route>
 				<Route path="*">
-					<div>NotFound</div>
+					<NotFoundPage />
 				</Route>
 			</Switch>
 		</>
