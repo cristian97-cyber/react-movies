@@ -49,6 +49,14 @@ const watchlistSlice = createSlice({
 			const lastItemIndex = page < state.numPages ? page * 20 : state.numItems;
 			state.pageItems = state.totItems.slice(firstItemIndex, lastItemIndex);
 		},
+
+		clear(state) {
+			state.totItems = [];
+			state.numItems = 0;
+			state.numPages = 0;
+
+			localStorage.clear("watchlist");
+		},
 	},
 });
 
