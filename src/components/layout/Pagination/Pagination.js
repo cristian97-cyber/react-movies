@@ -20,8 +20,13 @@ const Pagination = function (props) {
 				else paginationNumbers.push(-1);
 				break;
 			case 2:
-				if (props.actualPage < 5) paginationNumbers.push(i + 1);
-				else paginationNumbers.push(props.actualPage - 1);
+				if (props.actualPage < 5) {
+					paginationNumbers.push(i + 1);
+				} else if (props.actualPage >= props.numPages - 2) {
+					paginationNumbers.push(props.numPages - 4);
+				} else {
+					paginationNumbers.push(props.actualPage - 1);
+				}
 				break;
 			case 3:
 				if (props.actualPage < 5) {

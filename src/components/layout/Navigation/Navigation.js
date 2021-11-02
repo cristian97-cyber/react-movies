@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
-import { Link, NavLink, useHistory } from "react-router-dom";
+import { Link, NavLink, useHistory, useLocation } from "react-router-dom";
 import { CSSTransition } from "react-transition-group";
 
 import style from "./Navigation.module.css";
@@ -15,6 +15,9 @@ const Navigation = function (props) {
 	const dispatch = useDispatch();
 
 	const history = useHistory();
+	const location = useLocation();
+	const urlParams = new URLSearchParams(location.search);
+	const movieType = urlParams.get("movie-type") || "all";
 
 	const toggleResponsiveNav = () =>
 		dispatch(navigationActions.toggleResponsiveNav());
@@ -29,8 +32,13 @@ const Navigation = function (props) {
 	const submitHandler = function (e) {
 		e.preventDefault();
 
-		if (props.query) history.push(`/movies?search=${props.query}`);
-		else history.push("/movies");
+		const searchParam = props.query ? `search=${props.query}` : "";
+
+		const movieTypeParam = props.query
+			? `&movie-type=${movieType}`
+			: `movie-type=${movieType}`;
+
+		history.push(`/movies?${searchParam}${movieTypeParam}`);
 	};
 
 	const navigationClassName = `${style.navigation} ${
