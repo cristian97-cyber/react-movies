@@ -37,8 +37,6 @@
 .movie-detail__btn {
 	width: 100%;
 	display: block;
-	background-color: var(--color-blue);
-	color: #fff;
 	font: inherit;
 	padding: 1rem;
 	border: none;
@@ -50,6 +48,17 @@
 
 .movie-detail__btn:focus {
 	outline: none;
+}
+
+.movie-detail__btn--add {
+	background-color: var(--color-blue);
+	color: #fff;
+}
+
+.movie-detail__btn--remove {
+	background-color: #fff;
+	color: var(--color-blue);
+	border: 2px solid var(--color-blue);
 }
 
 .movie-detail__info {

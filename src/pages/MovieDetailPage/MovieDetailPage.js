@@ -30,6 +30,7 @@ const MovieDetailPage = function () {
 				id: data.id,
 				image: data.poster_path && `${API_POSTER_URL}${data.poster_path}`,
 				title: data.title || data.name,
+				rating: data.vote_average,
 				releaseDate: data.release_date || data.first_air_date,
 				type: movieType,
 				genres: data.genres,

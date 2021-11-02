@@ -1,3 +1,4 @@
+import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 
 import style from "./MovieDetail.module.css";
@@ -9,6 +10,7 @@ import {
 	GEOCODING_API_URL,
 	API_POSTER_URL,
 } from "../../../config";
+import { watchlistActions } from "../../../store/watchlist";
 import LoadingSpinner from "../../layout/LoadingSpinner/LoadingSpinner";
 import ProvidersList from "../../providers/ProvidersList/ProvidersList";
 import MovieTrailer from "../MovieTrailer/MovieTrailer";
@@ -16,12 +18,58 @@ import MovieTrailer from "../MovieTrailer/MovieTrailer";
 const MovieDetail = function (props) {
 	const movie = props.movie;
 
+	const watchlist = useSelector(state => state.watchlist);
+	const isItemInWatchlist = watchlist.totItems.some(
+		item => item.id === movie.id
+	);
+
+	const dispatch = useDispatch();
+
 	const [country, setCountry] = useState(null);
 	const [geoError, setGeoError] = useState("");
 	const [providers, setProviders] = useState([]);
 	const [noProviders, setNoProviders] = useState(false);
 	const [video, setVideo] = useState(null);
 	const [noVideo, setNoVideo] = useState(false);
+
+	const addToWatchlist = function () {
+		const item = {
+			id: movie.id,
+			image: movie.image,
+			title: movie.title,
+			rating: movie.rating,
+			type: movie.type,
+		};
+
+		dispatch(watchlistActions.addItem(item));
+	};
+
+	const removeFromWatchlist = function () {
+		dispatch(watchlistActions.removeItem(movie.id));
+	};
+
+	let itemButtonContent;
+	if (isItemInWatchlist) {
+		itemButtonContent = (
+			<button
+				type="button"
+				className={`${style["movie-detail__btn"]} ${style["movie-detail__btn--remove"]}`}
+				onClick={removeFromWatchlist}
+			>
+				Remove from WatchList
+			</button>
+		);
+	} else {
+		itemButtonContent = (
+			<button
+				type="button"
+				className={`${style["movie-detail__btn"]} ${style["movie-detail__btn--add"]}`}
+				onClick={addToWatchlist}
+			>
+				Add to WatchList
+			</button>
+		);
+	}
 
 	const image = movie.image || noImageIcon;
 
@@ -119,9 +167,7 @@ const MovieDetail = function (props) {
 					<img src={image} alt={movie.title} />
 				</figure>
 				<div className={style["movie-detail__card-actions"]}>
-					<button type="button" className={style["movie-detail__btn"]}>
-						Add to WatchList
-					</button>
+					{itemButtonContent}
 				</div>
 			</div>
 
@@ -158,6 +204,9 @@ const MovieDetail = function (props) {
 				</p>
 				<p>
 					<span>Plot: </span> {movie.plot || "N/A"}
+				</p>
+				<p>
+					<span>Rating: </span> {movie.rating}
 				</p>
 
 				{isLoading && (
