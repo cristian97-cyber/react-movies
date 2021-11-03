@@ -19,7 +19,6 @@ const Navigation = function (props) {
 	const location = useLocation();
 	const urlParams = new URLSearchParams(location.search);
 	const movieType = urlParams.get("movie-type") || "all";
-	const movieGenre = +urlParams.get("movie-genre") || "all";
 
 	const toggleResponsiveNav = () =>
 		dispatch(navigationActions.toggleResponsiveNav());

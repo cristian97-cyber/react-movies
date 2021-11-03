@@ -9,7 +9,6 @@ const SearchMovie = function (props) {
 	const location = useLocation();
 	const urlParams = new URLSearchParams(location.search);
 	const movieType = urlParams.get("movie-type") || "all";
-	const movieGenre = +urlParams.get("movie-genre") || "all";
 
 	const searchInputChangeHandler = function (e) {
 		props.onChangeQuery(e.target.value);
