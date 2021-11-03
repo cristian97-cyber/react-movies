@@ -2,12 +2,14 @@ import { useHistory, useLocation } from "react-router";
 
 import style from "./SearchMovie.module.css";
 import icons from "../../../img/icons.svg";
+import { createMoviesUrl } from "../../../helpers";
 
 const SearchMovie = function (props) {
 	const history = useHistory();
 	const location = useLocation();
 	const urlParams = new URLSearchParams(location.search);
 	const movieType = urlParams.get("movie-type") || "all";
+	const movieGenre = +urlParams.get("movie-genre") || "all";
 
 	const searchInputChangeHandler = function (e) {
 		props.onChangeQuery(e.target.value);
@@ -16,13 +18,8 @@ const SearchMovie = function (props) {
 	const submitHandler = function (e) {
 		e.preventDefault();
 
-		const searchParam = props.query ? `search=${props.query}` : "";
-
-		const movieTypeParam = props.query
-			? `&movie-type=${movieType}`
-			: `movie-type=${movieType}`;
-
-		history.push(`/movies?${searchParam}${movieTypeParam}`);
+		const url = createMoviesUrl(props.query, movieType, "all");
+		history.push(url);
 	};
 
 	return (

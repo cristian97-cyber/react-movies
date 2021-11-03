@@ -12,24 +12,36 @@
 	margin-bottom: 5rem;
 }
 
-.movies-page__select-type {
+.movies-page__select-type,
+.movies-page__select-genre {
 	display: flex;
 	align-items: center;
 }
 
-.movies-page__select-type label {
+.movies-page__select-type label,
+.movies-page__select-genre label {
 	font-weight: 700;
 	margin-right: 1rem;
 }
 
-.movies-page__select-type select {
-	width: 12.5rem;
+.movies-page__select-type select,
+.movies-page__select-genre select {
 	font: inherit;
 	padding: 0.5rem;
 	border: 1px solid var(--color-black);
 	border-radius: 3px;
+	transition: all 0.2s;
 }
 
-.movies-page__select-type select:focus {
-	outline: none;
+.movies-page__select-type select {
+	width: 12.5rem;
+}
+
+.movies-page__select-genre select {
+	width: 20rem;
+}
+
+.movies-page__select-type select:focus,
+.movies-page__select-genre select:focus {
+	outline: 1px solid var(--color-black);
 }

@@ -2,13 +2,16 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route, Redirect, useLocation } from "react-router";
 
+import useHttp from "./hooks/http";
 import { watchlistActions } from "./store/watchlist";
+import { genresActions } from "./store/genres";
 import Navigation from "./components/layout/Navigation/Navigation";
 import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
 import MoviesPage from "./pages/MoviesPage/MoviesPage";
 import WatchListPage from "./pages/WatchListPage/WatchListPage";
 import MovieDetailPage from "./pages/MovieDetailPage/MovieDetailPage";
 import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
+import { API_KEY, API_URL } from "./config";
 
 const App = function () {
 	const dispatch = useDispatch();
@@ -19,6 +22,8 @@ const App = function () {
 
 	const [searchQuery, setSearchQuery] = useState("");
 
+	const [isLoading, error, sendHttpRequest] = useHttp();
+
 	useEffect(() => {
 		const storedWatchlist = localStorage.getItem("watchlist");
 		if (!storedWatchlist) return;
@@ -26,6 +31,34 @@ const App = function () {
 		const watchlist = JSON.parse(storedWatchlist);
 		dispatch(watchlistActions.setItems(watchlist));
 	}, [dispatch]);
+
+	useEffect(() => {
+		const getGenres = async function () {
+			const movieData = await sendHttpRequest({
+				url: `${API_URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`,
+			});
+			if (!movieData) return;
+
+			const tvData = await sendHttpRequest({
+				url: `${API_URL}/genre/tv/list?api_key=${API_KEY}&language=en-US`,
+			});
+			if (!tvData) return;
+
+			const movie = [];
+			const tv = [];
+
+			movieData.genres.forEach(gen => {
+				movie.push({ id: gen.id, name: gen.name });
+			});
+
+			tvData.genres.forEach(gen => {
+				tv.push({ id: gen.id, name: gen.name });
+			});
+
+			dispatch(genresActions.set({ movie, tv }));
+		};
+		getGenres();
+	}, [dispatch, sendHttpRequest]);
 
 	useEffect(() => {
 		setSearchQuery(searchQueryParam);
@@ -46,7 +79,7 @@ const App = function () {
 					<Navigation query={searchQuery} onChangeQuery={changeQuery} />
 					<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />
 
-					<MoviesPage />
+					<MoviesPage isLoadingGenres={isLoading} genresError={error} />
 				</Route>
 				<Route path="/movies/:movieType/:movieId" exact>
 					<Navigation query={searchQuery} onChangeQuery={changeQuery} />

@@ -6,6 +6,7 @@ import style from "./Navigation.module.css";
 import logo from "../../../img/logo.svg";
 import icons from "../../../img/icons.svg";
 import { navigationActions } from "../../../store/navigation";
+import { createMoviesUrl } from "../../../helpers";
 
 const Navigation = function (props) {
 	const showResponsiveNav = useSelector(
@@ -18,6 +19,7 @@ const Navigation = function (props) {
 	const location = useLocation();
 	const urlParams = new URLSearchParams(location.search);
 	const movieType = urlParams.get("movie-type") || "all";
+	const movieGenre = +urlParams.get("movie-genre") || "all";
 
 	const toggleResponsiveNav = () =>
 		dispatch(navigationActions.toggleResponsiveNav());
@@ -32,13 +34,8 @@ const Navigation = function (props) {
 	const submitHandler = function (e) {
 		e.preventDefault();
 
-		const searchParam = props.query ? `search=${props.query}` : "";
-
-		const movieTypeParam = props.query
-			? `&movie-type=${movieType}`
-			: `movie-type=${movieType}`;
-
-		history.push(`/movies?${searchParam}${movieTypeParam}`);
+		const url = createMoviesUrl(props.query, movieType, "all");
+		history.push(url);
 	};
 
 	const navigationClassName = `${style.navigation} ${
