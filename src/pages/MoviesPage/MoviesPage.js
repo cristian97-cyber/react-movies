@@ -67,13 +67,8 @@ const MoviesPage = function (props) {
 				await setData(url);
 			}
 
-			if (movieGenre !== "all" && !searchQuery) {
+			if (movieGenre !== "all") {
 				const url = `${API_URL}/discover/${movieType}?api_key=${API_KEY}&language=en-US&with_genres=${movieGenre}&sort_by=popularity.desc&page=${actualPage}`;
-				await setData(url);
-			}
-
-			if (movieGenre !== "all" && searchQuery) {
-				const url = `${API_URL}/discover/${movieType}?api_key=${API_KEY}&language=en-US&with_genres=${movieGenre}&sort_by=popularity.desc&with_keywords=${searchQuery}&page=${actualPage}`;
 				await setData(url);
 			}
 		};

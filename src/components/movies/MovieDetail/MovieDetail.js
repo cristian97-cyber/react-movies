@@ -206,7 +206,7 @@ const MovieDetail = function (props) {
 					<span>Plot: </span> {movie.plot || "N/A"}
 				</p>
 				<p>
-					<span>Rating: </span> {movie.rating}
+					<span>Rating: </span> {movie.rating || "N/A"}
 				</p>
 
 				{isLoading && (

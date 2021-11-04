@@ -2,16 +2,16 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Switch, Route, Redirect, useLocation } from "react-router";
 
-import useHttp from "./hooks/http";
+import { API_KEY, API_URL } from "./config";
 import { watchlistActions } from "./store/watchlist";
 import { genresActions } from "./store/genres";
+import useHttp from "./hooks/http";
+import MoviesPage from "./pages/MoviesPage/MoviesPage";
+import MovieDetailPage from "./pages/MovieDetailPage/MovieDetailPage";
+import WatchListPage from "./pages/WatchListPage/WatchListPage";
+import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
 import Navigation from "./components/layout/Navigation/Navigation";
 import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
-import MoviesPage from "./pages/MoviesPage/MoviesPage";
-import WatchListPage from "./pages/WatchListPage/WatchListPage";
-import MovieDetailPage from "./pages/MovieDetailPage/MovieDetailPage";
-import NotFoundPage from "./pages/NotFoundPage/NotFoundPage";
-import { API_KEY, API_URL } from "./config";
 
 const App = function () {
 	const dispatch = useDispatch();
@@ -74,7 +74,6 @@ const App = function () {
 				<Route path="/" exact>
 					<Redirect to="/movies" />
 				</Route>
-
 				<Route path="/movies" exact>
 					<Navigation query={searchQuery} onChangeQuery={changeQuery} />
 					<SearchMovie query={searchQuery} onChangeQuery={changeQuery} />

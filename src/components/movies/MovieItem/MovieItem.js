@@ -78,7 +78,9 @@ const MovieItem = function (props) {
 				<div className={style["movie-item__content"]}>
 					<div className={style["movie-item__info-row"]}>
 						<h4>{props.title}</h4>
-						<div className={style["movie-item__rating"]}>{props.rating}</div>
+						<div className={style["movie-item__rating"]}>
+							{props.rating || "N/A"}
+						</div>
 					</div>
 					<div className={style["movie-item__info-item"]}>
 						<p>{props.type === "movie" ? "Movie" : "Series"}</p>
