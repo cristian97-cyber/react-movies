@@ -14,7 +14,6 @@ import Navigation from "./components/layout/Navigation/Navigation";
 import SearchMovie from "./components/movies/SearchMovie/SearchMovie";
 
 const App = function () {
-	console.log("Ready");
 	const dispatch = useDispatch();
 
 	const location = useLocation();
